@@ -2,87 +2,24 @@
 <html>
 <head>
     <title>Citizen Feedback Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f4f4f4;
-            animation: fadeIn 1s ease-in;
-        }
-
-        h2, h3 {
-            text-align: center;
-            color: #333;
-            animation: slideDown 1s ease-out;
-        }
-
-        div {
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 80%;
-            transition: transform 0.3s ease;
-        }
-
-        div:hover {
-            transform: scale(1.02);
-        }
-
-        img {
-            width: 100%;
-            border-radius: 8px;
-            animation: fadeIn 2s ease-in;
-        }
-
-        iframe {
-            border: none;
-            border-radius: 8px;
-            animation: fadeIn 2s ease-in;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-            font-size: 18px;
-            color: #007BFF;
-            text-decoration: none;
-            animation: fadeIn 2s ease-in;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h2>Dashboard Overview</h2>
 
     <div>
         <h3>Topic Distribution</h3>
-        <img src="/static/topic_distribution.png" alt="Topic Distribution">
+        <canvas id="topicChart"></canvas>
     </div>
 
     <div>
         <h3>Urgency Levels</h3>
-        <img src="/static/urgency_levels.png" alt="Urgency Levels">
+        <canvas id="urgencyChart"></canvas>
     </div>
 
     <div>
         <h3>Sentiment Analysis</h3>
-        <img src="/static/sentiment_analysis.png" alt="Sentiment Analysis">
+        <canvas id="sentimentChart"></canvas>
     </div>
 
     <div>
@@ -92,5 +29,48 @@
 
     <br>
     <a href="/">Submit More Feedback</a>
+
+    <script>
+        async function fetchData(url) {
+            const response = await fetch(url);
+            return response.json();
+        }
+
+        async function updateCharts() {
+            const topicData = await fetchData('/api/topic_distribution');
+            const urgencyData = await fetchData('/api/urgency_levels');
+            const sentimentData = await fetchData('/api/sentiment_analysis');
+
+            topicChart.data = topicData;
+            urgencyChart.data = urgencyData;
+            sentimentChart.data = sentimentData;
+
+            topicChart.update();
+            urgencyChart.update();
+            sentimentChart.update();
+        }
+
+        const topicChart = new Chart(document.getElementById('topicChart'), {
+            type: 'bar',
+            data: {}, // Initial empty data
+            options: {}
+        });
+
+        const urgencyChart = new Chart(document.getElementById('urgencyChart'), {
+            type: 'pie',
+            data: {},
+            options: {}
+        });
+
+        const sentimentChart = new Chart(document.getElementById('sentimentChart'), {
+            type: 'line',
+            data: {},
+            options: {}
+        });
+
+        // Update charts every 10 seconds
+        setInterval(updateCharts, 10000);
+        updateCharts(); // Initial load
+    </script>
 </body>
 </html>
