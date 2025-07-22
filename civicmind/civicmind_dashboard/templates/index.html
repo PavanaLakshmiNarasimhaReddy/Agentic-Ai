@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CivicMind Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>CivicMind Real-Time Dashboard</h1>
+
+    <canvas id="rlChart" width="400" height="200"></canvas>
+    <canvas id="flChart" width="400" height="200"></canvas>
+    <canvas id="nlpChart" width="400" height="200"></canvas>
+    <canvas id="cvChart" width="400" height="200"></canvas>
+
+    <script>
+        const rlCtx = document.getElementById('rlChart').getContext('2d');
+        const flCtx = document.getElementById('flChart').getContext('2d');
+        const nlpCtx = document.getElementById('nlpChart').getContext('2d');
+        const cvCtx = document.getElementById('cvChart').getContext('2d');
+
+        const rlChart = new Chart(rlCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'RL Rewards',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            }
+        });
+
+        const flChart = new Chart(flCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'FL Updates',
+                    data: [],
+                    borderColor: 'green',
+                    fill: false
+                }]
+            }
+        });
+
+        const nlpChart = new Chart(nlpCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'NLP Keyword Frequency',
+                    data: [],
+                    backgroundColor: 'orange'
+                }]
+            }
+        });
+
+        const cvChart = new Chart(cvCtx, {
+            type: 'bar',
+            data: {
+                labels: ['pollution', 'clear'],
+                datasets: [{
+                    label: 'CV Status Count',
+                    data: [0, 0],
+                    backgroundColor: ['red', 'lightgreen']
+                }]
+            }
+        });
+
+        function updateCharts() {
+            fetch('/data/rl').then(res => res.json()).then(data => {
+                rlChart.data.labels = data.map((_, i) => i);
+                rlChart.data.datasets[0].data = data;
+                rlChart.update();
+            });
+
+            fetch('/data/fl').then(res => res.json()).then(data => {
+                flChart.data.labels = data.map((_, i) => i);
+                flChart.data.datasets[0].data = data;
+                flChart.update();
+            });
+
+            fetch('/data/nlp').then(res => res.json()).then(data => {
+                const labels = Object.keys(data);
+                const values = Object.values(data);
+                nlpChart.data.labels = labels;
+                nlpChart.data.datasets[0].data = values;
+                nlpChart.update();
+            });
+
+            fetch('/data/cv').then(res => res.json()).then(data => {
+                const pollution = data.filter(x => x === 'pollution').length;
+                const clear = data.filter(x => x === 'clear').length;
+                cvChart.data.datasets[0].data = [pollution, clear];
+                cvChart.update();
+            });
+        }
+
+        setInterval(updateCharts, 3000);
+    </script>
+</body>
+</html>
