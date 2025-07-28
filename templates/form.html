@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Citizen Feedback Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    #chatbox { background: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; }
+    .message { margin: 10px 0; }
+    .user { text-align: right; color: blue; }
+    .bot { text-align: left; color: green; }
+    input[type="text"] { width: 80%; padding: 10px; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <h2>Citizen Feedback Chatbot</h2>
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="Type your feedback..." />
+    <button onclick="sendMessage()">Send</button>
+    <br/><br/>
+    <a href="dashboard.html" target="_blank">Go to Dashboard</a>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (message === '') return;
+
+      const messagesDiv = document.getElementById('messages');
+      messagesDiv.innerHTML += `<div class="message user">${message}</div>`;
+
+      // Simulate bot response
+      setTimeout(() => {
+        const response = getBotResponse(message);
+        messagesDiv.innerHTML += `<div class="message bot">${response}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }, 500);
+
+      // Store feedback in localStorage
+      storeFeedback(message);
+
+      input.value = '';
+    }
+
+    function getBotResponse(msg) {
+      if (msg.toLowerCase().includes('hello')) return 'Hi there! How can I help you today?';
+      if (msg.toLowerCase().includes('feedback')) return 'Thank you for your feedback!';
+      return 'Got it! Anything else you’d like to share?';
+    }
+
+    function storeFeedback(msg) {
+      let feedbackData = JSON.parse(localStorage.getItem('feedbackData') || '[]');
+      feedbackData.push({
+        message: msg,
+        topic: detectTopic(msg),
+        urgency: detectUrgency(msg),
+        sentiment: detectSentiment(msg)
+      });
+      localStorage.setItem('feedbackData', JSON.stringify(feedbackData));
+    }
+
+    function detectTopic(msg) {
+      if (msg.includes('road')) return 'Infrastructure';
+      if (msg.includes('school')) return 'Education';
+      if (msg.includes('hospital')) return 'Healthcare';
+      return 'General';
+    }
+
+    function detectUrgency(msg) {
+      if (msg.includes('urgent') || msg.includes('immediate')) return 'High';
+      if (msg.includes('soon')) return 'Medium';
+      return 'Low';
+    }
+
+    function detectSentiment(msg) {
+      if (msg.includes('good') || msg.includes('great')) return 'Positive';
+      if (msg.includes('bad') || msg.includes('poor')) return 'Negative';
+      return 'Neutral';
+    }
+  </script>
+</body>
+</html>

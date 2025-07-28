@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_199a3fe4041f1db3eaf03138e6349940 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_199a3fe4041f1db3eaf03138e6349940" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_199a3fe4041f1db3eaf03138e6349940 = L.map(
+                "map_199a3fe4041f1db3eaf03138e6349940",
+                {
+                    center: [49.2827, -123.1207],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1898943b10699abae1207c4e1cc18222 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1898943b10699abae1207c4e1cc18222.addTo(map_199a3fe4041f1db3eaf03138e6349940);
+        
+    
+            var marker_cluster_d1284282b0a2902868db4c5a2f04c7bb = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_e7acb3adf7c776bee232e05e7f9d9d91 = L.marker(
+                [49.2827, -123.1207],
+                {
+}
+            ).addTo(marker_cluster_d1284282b0a2902868db4c5a2f04c7bb);
+        
+    
+        var popup_48f84aadb7feb9ee52298cd6cbd22b36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_62b486ff7926e2dc646791399946606f = $(`<div id="html_62b486ff7926e2dc646791399946606f" style="width: 100.0%; height: 100.0%;">Topic: sanitation<br>Urgency: high<br>Sentiment: negative<br>Message: There’s a huge pile of garbage near the community center. It’s been there for 3 days and smells awful!</div>`)[0];
+                popup_48f84aadb7feb9ee52298cd6cbd22b36.setContent(html_62b486ff7926e2dc646791399946606f);
+            
+        
+
+        marker_e7acb3adf7c776bee232e05e7f9d9d91.bindPopup(popup_48f84aadb7feb9ee52298cd6cbd22b36)
+        ;
+
+        
+    
+    
+            var marker_be756ead1170d4f915c4286d9b590956 = L.marker(
+                [49.2845, -123.1119],
+                {
+}
+            ).addTo(marker_cluster_d1284282b0a2902868db4c5a2f04c7bb);
+        
+    
+        var popup_0119213323e418fd9b2536534212c0aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c8883f95e59bea8f153b2e0ef64c9581 = $(`<div id="html_c8883f95e59bea8f153b2e0ef64c9581" style="width: 100.0%; height: 100.0%;">Topic: sanitation<br>Urgency: normal<br>Sentiment: positive<br>Message: Great job on cleaning up the park! It looks beautiful now.</div>`)[0];
+                popup_0119213323e418fd9b2536534212c0aa.setContent(html_c8883f95e59bea8f153b2e0ef64c9581);
+            
+        
+
+        marker_be756ead1170d4f915c4286d9b590956.bindPopup(popup_0119213323e418fd9b2536534212c0aa)
+        ;
+
+        
+    
+    
+            var marker_ec0645e305b94af8cb0f879a79d1ce82 = L.marker(
+                [49.28, -123.115],
+                {
+}
+            ).addTo(marker_cluster_d1284282b0a2902868db4c5a2f04c7bb);
+        
+    
+        var popup_02b646e67d1027e4e1fc43adbfaa5e43 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_393a16b7c00b8cd9c4f8ed074f3b2371 = $(`<div id="html_393a16b7c00b8cd9c4f8ed074f3b2371" style="width: 100.0%; height: 100.0%;">Topic: noise<br>Urgency: normal<br>Sentiment: negative<br>Message: Loud music from the apartment complex next to the library is disturbing the neighborhood every night.</div>`)[0];
+                popup_02b646e67d1027e4e1fc43adbfaa5e43.setContent(html_393a16b7c00b8cd9c4f8ed074f3b2371);
+            
+        
+
+        marker_ec0645e305b94af8cb0f879a79d1ce82.bindPopup(popup_02b646e67d1027e4e1fc43adbfaa5e43)
+        ;
+
+        
+    
+    
+            var marker_539e492552cb32e290b8ca2eae7c1586 = L.marker(
+                [49.2781, -123.1225],
+                {
+}
+            ).addTo(marker_cluster_d1284282b0a2902868db4c5a2f04c7bb);
+        
+    
+        var popup_5dcaa73864e1fb7e7de2a3bca61bbd76 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d86caf1903b33afa860f996b95219ffb = $(`<div id="html_d86caf1903b33afa860f996b95219ffb" style="width: 100.0%; height: 100.0%;">Topic: infrastructure<br>Urgency: high<br>Sentiment: positive<br>Message: Water leakage near the school has been going on for a week. Please fix it urgently!</div>`)[0];
+                popup_5dcaa73864e1fb7e7de2a3bca61bbd76.setContent(html_d86caf1903b33afa860f996b95219ffb);
+            
+        
+
+        marker_539e492552cb32e290b8ca2eae7c1586.bindPopup(popup_5dcaa73864e1fb7e7de2a3bca61bbd76)
+        ;
+
+        
+    
+    
+            marker_cluster_d1284282b0a2902868db4c5a2f04c7bb.addTo(map_199a3fe4041f1db3eaf03138e6349940);
+        
+</script>
+</html>
