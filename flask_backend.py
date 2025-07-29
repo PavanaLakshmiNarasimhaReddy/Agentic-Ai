@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -9,6 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# Feedback model
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text, nullable=False)
@@ -17,6 +17,7 @@ class Feedback(db.Model):
     sentiment = db.Column(db.String(50))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+# Feedback analysis logic
 def analyze_feedback(message):
     message_lower = message.lower()
     topic = "General"
@@ -42,19 +43,23 @@ def analyze_feedback(message):
 
     return topic, urgency, sentiment
 
+# Route to submit feedback
 @app.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
     data = request.get_json()
-    message = data.get('message', '')
-    topic, urgency, sentiment = analyze_feedback(message)
+    message = data.get('message', '').strip()
+    if not message:
+        return jsonify({'error': 'Message is required'}), 400
 
+    topic, urgency, sentiment = analyze_feedback(message)
     feedback = Feedback(message=message, topic=topic, urgency=urgency, sentiment=sentiment)
     db.session.add(feedback)
     db.session.commit()
 
     return jsonify({'status': 'success', 'topic': topic, 'urgency': urgency, 'sentiment': sentiment})
 
-@app.route('/get_dashboard_data', methods=['GET'])
+# Route to get dashboard data
+@app.route('/dashboard', methods=['GET'])
 def get_dashboard_data():
     feedbacks = Feedback.query.all()
     topics = [fb.topic for fb in feedbacks]
@@ -66,11 +71,11 @@ def get_dashboard_data():
     sentiment_counts = dict(Counter(sentiments))
 
     return jsonify({
-        'topics': topic_counts,
-        'urgencies': urgency_counts,
-        'sentiments': sentiment_counts
-    })
+        'topic_distribution': topic_counts,
+        'urgency_levels': urgency_counts,
+        'sentiment_analysis': sentiment_counts})
 
+# Initialize database and run server
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Citizen Feedback Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  https://cdn.jsdelivr.net/npm/chart.js
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
     h2 { text-align: center; }
@@ -15,19 +15,19 @@
   <h2>Citizen Feedback Dashboard</h2>
 
   <div class="chart-container">
-    <canvas id="topicChart"></canvas>
+    <canvas id="topic_distribution"></canvas>
   </div>
   <div class="chart-container">
-    <canvas id="urgencyChart"></canvas>
+    <canvas id="urgency_levels"></canvas>
   </div>
   <div class="chart-container">
-    <canvas id="sentimentChart"></canvas>
+    <canvas id="sentiment_analysis"></canvas>
   </div>
 
   <script>
     async function fetchDashboardData() {
       try {
-        const response = await fetch('http://localhost:5000/get_dashboard_data');
+        const response = await fetch('/dashboard');
         const data = await response.json();
         renderCharts(data);
       } catch (error) {
